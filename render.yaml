@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: beca
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && apt-get update && apt-get install -y tor nmap hydra ffmpeg curl wget ca-certificates whois dnsutils && curl -sL https://github.com/AlexxIT/go2rtc/releases/latest/download/go2rtc-linux-amd64 -o /usr/local/bin/go2rtc && chmod +x /usr/local/bin/go2rtc"
+    startCommand: "tor && sleep 30 && go2rtc & sleep 2 && uvicorn api:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
