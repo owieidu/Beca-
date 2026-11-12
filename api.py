@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import httpx, os, importlib.util
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-spec = importlib.util.spec_from_file_location("bh", "/opt/beca/beca_hack.py")
+spec = importlib.util.spec_from_file_location("bh", os.path.join(os.path.dirname(__file__), "beca_hack.py"))
 bh = importlib.util.module_from_spec(spec); spec.loader.exec_module(bh)
 KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 class ChatIn(BaseModel):
